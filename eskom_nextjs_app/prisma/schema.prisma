@@ -1,0 +1,30 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model energycapacity {
+  Date_Time_Hour_Beginning String? @map("Date Time Hour Beginning")
+  Wind_Installed_Capacity  String? @map("Wind Installed Capacity")
+  Installed_Eskom_Capacity String? @map("Installed Eskom Capacity")
+  CSP_Installed_Capacity   String? @map("CSP Installed Capacity")
+  id                       Int     @id @default(autoincrement())
+}
+
+model hourlyforecasts {
+  Date_Time_Hour_Beginning DateTime? @map("Date Time Hour Beginning") @db.Timestamp(6)
+  Residual_Demand_Forecast Float?    @map("Residual Demand Forecast")
+  Eskom_Residual_Forecast  String?   @map("Eskom Residual Forecast")
+  id                       Int       @id @default(autoincrement())
+}
+
+model weeklyforecasts {
+  Date_Time_Hour_Beginning DateTime? @map("Date Time Hour Beginning") @db.Timestamp(6)
+  Residual_Demand          Float?    @map("Residual Demand")
+  Forecast_Demand          Float?    @map("Forecast Demand")
+  id                       Int       @id @default(autoincrement())
+}
